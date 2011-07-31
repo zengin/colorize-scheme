@@ -1,0 +1,26 @@
+This little application applies a different coloring method on a functional
+language, Scheme. Instead of coloring keywords, it colorizes elements
+at the same depth with the same color. The purpose of the application is to make
+programmers read and keep track of the code in an easier way.
+
+It uses deprecated HTML tag "font" to colorize.
+
+It is a very simple application. Any comments or suggestions are welcome.
+
+functions.ss is an example scheme file whose colorized html form can be found as
+functions.html in the repository.
+
+After compiling the code, you can simply run the program like the following:
+
+java ColorizeScheme functions.ss
+
+or
+
+java ColorizeScheme functions.ss output.html
+
+to choose a user defined output file name.
+
+I make sure just two things about the correctness of the code:
+
+- There is nothing, except a comment, outside a paranthesis pair.
+- Every matched paranthesis pair is the same. (e.g. [] () )
