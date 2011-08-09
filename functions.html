@@ -3,85 +3,87 @@
 <title>Colorized functions.ss</title>
 </head>
 <body bgcolor=#FFFFFF>
-<font color=#000000><b>;;Depth function</b></font><br>
-<font color=#000000><b>;;returns the depth of given list</b></font><br>
-<font color=#000099>(define <font color=#990000>(depth lst)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(atom? lst)</font> 0)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> 1)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(list? <font color=#000099>(car lst)</font>)</font> <font color=#000000>(max <font color=#000099>( + 1 <font color=#990000>(depth <font color=#009900>(car lst)</font>)</font>)</font><font color=#000099>(depth <font color=#990000>(cdr lst)</font>)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(depth <font color=#000099>(cdr lst)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000000><b>;;Depth helper function</b></font><br>
-<font color=#000099>(define atom?<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(lambda<font color=#009900>( lst)</font> <font color=#009900>(not <font color=#000000>( or <font color=#000099>(null? lst)</font> <font color=#000099>(list? lst)</font>)</font>)</font>)</font><br>
-)</font><br>
-<br>
-<font color=#000000><b>;;count-elm function</b></font><br>
-<font color=#000000><b>;;returns the counts each element in the given list</b></font><br>
-<font color=#000099>(define <font color=#990000>(count-elm lst)</font> <font color=#990000>(count-elm2 lst '<font color=#009900>()</font>)</font>)</font><br>
-<br>
-<font color=#000000><b>;;count-elm helper functions</b></font><br>
-<font color=#000099>(define <font color=#990000>(count-elm2 lst lst2)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>()</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(not <font color=#000099>(member lst2 <font color=#990000>(car lst)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#000000>(cons <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#000099>(cons <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(car lst)</font> <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(list <font color=#009900>(count lst <font color=#000000>(car lst)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#000099>(count-elm2 &nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cdr lst)</font> <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cons&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(car lst)</font> lst2)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</font> <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(count-elm2 <font color=#000099>(cdr lst)</font> lst2)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000099>(define <font color=#990000>(count lst at)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> 0)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(eq? at <font color=#000099>(car lst)</font>)</font> <font color=#000000>(+ 1 <font color=#000099>(count <font color=#990000>(cdr lst)</font> at)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(count <font color=#000099>(cdr lst)</font> at)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000099>(define <font color=#990000>(member lst at)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> #f)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(list? <font color=#000099>(car lst)</font>)</font> <font color=#000000>(or <font color=#000099>(member <font color=#990000>(car lst)</font> at)</font> <font color=#000099>(member <font color=#990000>(cdr lst)</font> at)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(eq? <font color=#000099>(car lst)</font> at)</font> #t)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(member <font color=#000099>(cdr lst)</font> at)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000099>(define <font color=#990000>(size lst)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> 0)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>( + 1 <font color=#000099>(size <font color=#990000>(cdr lst)</font>)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000000><b>;;Sublists function</b></font><br>
-<font color=#000000><b>;;returns all sublists of a given list</b></font><br>
-<font color=#000099>(define <font color=#990000>(sublists lst)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>(<font color=#000099>()</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(append <font color=#000099>(add-element-to-all <font color=#990000>(car lst)</font> <font color=#990000>(sublists <font color=#009900>(cdr lst)</font>)</font>)</font> <font color=#000099>(sublists <font color=#990000>(cdr lst)</font>)</font>)</font> )</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
-<br>
-<font color=#000000><b>;;Sublists helper function</b></font><br>
-<font color=#000099>(define <font color=#990000>(add-element-to-all at lst)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;<font color=#990000>(cond<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>()</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color=#009900>(else <font color=#000000>(cons <font color=#000099>(cons at <font color=#990000>(car lst)</font>)</font> <font color=#000099>(add-element-to-all at <font color=#990000>(cdr lst)</font>)</font>)</font>)</font><br>
-&nbsp;&nbsp;&nbsp;&nbsp;)</font><br>
-)</font><br>
+<pre>
+<font color=#000000><b>;;Depth function</b></font>
+<font color=#000000><b>;;returns the depth of given list</b></font>
+<font color=#000099>(define <font color=#990000>(depth lst)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(atom? lst)</font> 0)</font>
+		<font color=#009900>(<font color=#000000>(null? lst)</font> 1)</font>
+		<font color=#009900>(<font color=#000000>(list? <font color=#000099>(car lst)</font>)</font> <font color=#000000>(max <font color=#000099>( + 1 <font color=#990000>(depth <font color=#009900>(car lst)</font>)</font>)</font><font color=#000099>(depth <font color=#990000>(cdr lst)</font>)</font>)</font>)</font>
+		<font color=#009900>(else <font color=#000000>(depth <font color=#000099>(cdr lst)</font>)</font>)</font>
+	)</font>
+)</font>
 
+<font color=#000000><b>;;Depth helper function</b></font>
+<font color=#000099>(define atom?
+	<font color=#990000>(lambda<font color=#009900>( lst)</font> <font color=#009900>(not <font color=#000000>( or <font color=#000099>(null? lst)</font> <font color=#000099>(list? lst)</font>)</font>)</font>)</font>
+)</font>
+
+<font color=#000000><b>;;count-elm function</b></font>
+<font color=#000000><b>;;returns the counts each element in the given list</b></font>
+<font color=#000099>(define <font color=#990000>(count-elm lst)</font> <font color=#990000>(count-elm2 lst '<font color=#009900>()</font>)</font>)</font>
+
+<font color=#000000><b>;;count-elm helper functions</b></font>
+<font color=#000099>(define <font color=#990000>(count-elm2 lst lst2)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>()</font>)</font>
+		<font color=#009900>(<font color=#000000>(not <font color=#000099>(member lst2 <font color=#990000>(car lst)</font>)</font>)</font>
+			<font color=#000000>(cons 
+				<font color=#000099>(cons 
+					<font color=#990000>(car lst)</font> 
+					<font color=#990000>(list <font color=#009900>(count lst <font color=#000000>(car lst)</font>)</font>)</font>
+				)</font>
+				<font color=#000099>(count-elm2 	<font color=#990000>(cdr lst)</font> 
+						<font color=#990000>(cons	<font color=#009900>(car lst)</font> lst2)</font>
+				)</font>
+			)</font> 
+		)</font>
+		<font color=#009900>(else <font color=#000000>(count-elm2 <font color=#000099>(cdr lst)</font> lst2)</font>)</font>
+	)</font>
+)</font>
+
+<font color=#000099>(define <font color=#990000>(count lst at)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> 0)</font>
+		<font color=#009900>(<font color=#000000>(eq? at <font color=#000099>(car lst)</font>)</font> <font color=#000000>(+ 1 <font color=#000099>(count <font color=#990000>(cdr lst)</font> at)</font>)</font>)</font>
+		<font color=#009900>(else <font color=#000000>(count <font color=#000099>(cdr lst)</font> at)</font>)</font>
+	)</font>
+)</font>
+
+<font color=#000099>(define <font color=#990000>(member lst at)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> #f)</font>
+		<font color=#009900>(<font color=#000000>(list? <font color=#000099>(car lst)</font>)</font> <font color=#000000>(or <font color=#000099>(member <font color=#990000>(car lst)</font> at)</font> <font color=#000099>(member <font color=#990000>(cdr lst)</font> at)</font>)</font>)</font>
+		<font color=#009900>(<font color=#000000>(eq? <font color=#000099>(car lst)</font> at)</font> #t)</font>
+		<font color=#009900>(else <font color=#000000>(member <font color=#000099>(cdr lst)</font> at)</font>)</font>
+	)</font>
+)</font>
+
+<font color=#000099>(define <font color=#990000>(size lst)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> 0)</font>
+		<font color=#009900>(else <font color=#000000>( + 1 <font color=#000099>(size <font color=#990000>(cdr lst)</font>)</font>)</font>)</font>
+	)</font>
+)</font>
+
+<font color=#000000><b>;;Sublists function</b></font>
+<font color=#000000><b>;;returns all sublists of a given list</b></font>
+<font color=#000099>(define <font color=#990000>(sublists lst)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>(<font color=#000099>()</font>)</font>)</font>
+		<font color=#009900>(else <font color=#000000>(append <font color=#000099>(add-element-to-all <font color=#990000>(car lst)</font> <font color=#990000>(sublists <font color=#009900>(cdr lst)</font>)</font>)</font> <font color=#000099>(sublists <font color=#990000>(cdr lst)</font>)</font>)</font> )</font>
+	)</font>
+)</font>
+
+<font color=#000000><b>;;Sublists helper function</b></font>
+<font color=#000099>(define <font color=#990000>(add-element-to-all at lst)</font>
+	<font color=#990000>(cond
+		<font color=#009900>(<font color=#000000>(null? lst)</font> '<font color=#000000>()</font>)</font>
+		<font color=#009900>(else <font color=#000000>(cons <font color=#000099>(cons at <font color=#990000>(car lst)</font>)</font> <font color=#000099>(add-element-to-all at <font color=#990000>(cdr lst)</font>)</font>)</font>)</font>
+	)</font>
+)</font>
+
+</pre>
 </body>
 </html>

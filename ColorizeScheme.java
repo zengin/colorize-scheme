@@ -43,7 +43,7 @@ public class ColorizeScheme {
 			Scanner scan = new Scanner(file);
 			String string = "";
 			String output = "<html>\n<head>\n<title>Colorized " + args[0]
-					+ "</title>\n</head>\n<body bgcolor=#FFFFFF>\n";
+					+ "</title>\n</head>\n<body bgcolor=#FFFFFF>\n<pre>\n";
 			while (scan.hasNextLine()) {
 				/*
 				 *  read input file, line by line.
@@ -86,19 +86,12 @@ public class ColorizeScheme {
 							}
 						}
 						break;
-					case '\t':
-						output += "&nbsp;&nbsp;&nbsp;&nbsp;";
-						break;
 					case ' ':
-						if (i + 1 != string.length()
-								&& (char) string.charAt(i + 1) == ' ') {
-							output += "&nbsp;";
-						} else {
-							output += ' ';
-						}
+					case '\t':
+						output += (char) string.charAt(i);
 						break;
 					default:
-						if(!comment && stack.size() == 0){
+						if(!comment && stack.size() == 0 ){
 							errorMessage("[ERROR] Expecting an opening paranthesis, found " + string.charAt(i) + " at line " + lineCount ,string, i);
 						}
 						output += (char) string.charAt(i);
@@ -109,13 +102,13 @@ public class ColorizeScheme {
 				 *  put html end of line i.e. <br> and finished marking as comment if needed
 				 */
 				if (comment){
-					output += "</b></font><br>\n";
+					output += "</b></font>\n";
 					comment = false;
 				}else{
-					output += "<br>\n";
+					output += "\n";
 				}
 			}
-			output += "\n</body>\n</html>";
+			output += "\n</pre>\n</body>\n</html>";
 			
 			/*
 			 * Print error message if stack is not empty
