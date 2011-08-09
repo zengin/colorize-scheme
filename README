@@ -20,7 +20,7 @@ java ColorizeScheme functions.ss output.html
 
 to choose a user defined output file name.
 
-I make sure just two things about the correctness of the code:
+I make sure just two things about the correctness of input Scheme code:
 
 - There is nothing, except a comment, outside a paranthesis pair.
 - Every matched paranthesis pair is the same. (e.g. [] () )
