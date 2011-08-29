@@ -1,0 +1,7 @@
+# gedit autosave #
+##################
+*~
+
+# compiled source #
+###################
+*.class
